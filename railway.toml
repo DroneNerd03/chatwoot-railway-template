@@ -2,7 +2,6 @@
 builder = "dockerfile"
 
 [deploy]
-healthcheckPath = "/app/login"
 healthcheckTimeout = 300
 restartPolicyType = "on_failure"
 restartPolicyMaxRetries = 3
