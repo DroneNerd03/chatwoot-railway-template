@@ -1,13 +1,11 @@
 #!/bin/sh
+set -e
 
 echo "[chatwoot] ============================================"
 echo "[chatwoot] Chatwoot on Railway starting..."
 echo "[chatwoot] PORT=$PORT"
 echo "[chatwoot] RAILS_ENV=$RAILS_ENV"
 echo "[chatwoot] ============================================"
-
-echo "[chatwoot] Looking for show.html.erb..."
-find / -path '*app/views/widgets/show.html.erb' 2>/dev/null | tee /tmp/chatwoot-widget-paths.txt || true
 
 WIDGET_VIEW_PATHS="/app/app/views/widgets/show.html.erb /usr/src/app/app/views/widgets/show.html.erb"
 for PATH in $WIDGET_VIEW_PATHS; do
@@ -17,14 +15,6 @@ for PATH in $WIDGET_VIEW_PATHS; do
     break
   fi
 done
-
-set -e
-
-echo "[chatwoot] ============================================"
-echo "[chatwoot] Chatwoot on Railway starting..."
-echo "[chatwoot] PORT=$PORT"
-echo "[chatwoot] RAILS_ENV=$RAILS_ENV"
-echo "[chatwoot] ============================================"
 
 echo "[chatwoot] Running database migrations..."
 bundle exec rails db:chatwoot_prepare
