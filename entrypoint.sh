@@ -6,6 +6,9 @@ echo "[chatwoot] PORT=$PORT"
 echo "[chatwoot] RAILS_ENV=$RAILS_ENV"
 echo "[chatwoot] ============================================"
 
+echo "[chatwoot] Looking for show.html.erb..."
+find / -path '*app/views/widgets/show.html.erb' 2>/dev/null | tee /tmp/chatwoot-widget-paths.txt || true
+
 WIDGET_VIEW_PATHS="/app/app/views/widgets/show.html.erb /usr/src/app/app/views/widgets/show.html.erb"
 for PATH in $WIDGET_VIEW_PATHS; do
   if [ -f "$PATH" ]; then
@@ -14,10 +17,6 @@ for PATH in $WIDGET_VIEW_PATHS; do
     break
   fi
 done
-
-echo "[chatwoot] Running database migrations..."
-bundle exec rails db:chatwoot_prepare
-echo "[chatwoot] Migrations complete."
 
 set -e
 
