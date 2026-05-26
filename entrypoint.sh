@@ -8,10 +8,10 @@ echo "[chatwoot] RAILS_ENV=$RAILS_ENV"
 echo "[chatwoot] ============================================"
 
 WIDGET_VIEW_PATHS="/app/app/views/widgets/show.html.erb /usr/src/app/app/views/widgets/show.html.erb"
-for PATH in $WIDGET_VIEW_PATHS; do
-  if [ -f "$PATH" ]; then
-    echo "[chatwoot] Patching widget branding in $PATH"
-    sed -i 's/\(disableBranding:[[:space:]]*\).*$/\1true,/' "$PATH"
+for VIEW_PATH in $WIDGET_VIEW_PATHS; do
+  if [ -f "$VIEW_PATH" ]; then
+    echo "[chatwoot] Patching widget branding in $VIEW_PATH"
+    sed -i 's/\(disableBranding:[[:space:]]*\).*$/\1true,/' "$VIEW_PATH"
     break
   fi
 done
