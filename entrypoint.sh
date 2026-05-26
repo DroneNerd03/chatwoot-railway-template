@@ -1,4 +1,24 @@
 #!/bin/sh
+
+echo "[chatwoot] ============================================"
+echo "[chatwoot] Chatwoot on Railway starting..."
+echo "[chatwoot] PORT=$PORT"
+echo "[chatwoot] RAILS_ENV=$RAILS_ENV"
+echo "[chatwoot] ============================================"
+
+WIDGET_VIEW_PATHS="/app/app/views/widgets/show.html.erb /usr/src/app/app/views/widgets/show.html.erb"
+for PATH in $WIDGET_VIEW_PATHS; do
+  if [ -f "$PATH" ]; then
+    echo "[chatwoot] Patching widget branding in $PATH"
+    sed -i 's/\(disableBranding:[[:space:]]*\).*$/\1true,/' "$PATH"
+    break
+  fi
+done
+
+echo "[chatwoot] Running database migrations..."
+bundle exec rails db:chatwoot_prepare
+echo "[chatwoot] Migrations complete."
+
 set -e
 
 echo "[chatwoot] ============================================"
